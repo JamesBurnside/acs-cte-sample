@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@azure/communication-react": "^1.2.3-alpha-202206150016.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.11.41",
     "@types/react": "^17.x.x",
