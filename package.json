@@ -6,6 +6,7 @@
     "@azure/communication-react": "^1.2.3-alpha-202206150016.0",
     "@fluentui/react": "^8.76.0",
     "@microsoft/mgt-element": "^2.5.2",
+    "@microsoft/mgt-msal2-provider": "^2.5.2",
     "@microsoft/mgt-react": "^2.5.2",
     "@microsoft/microsoft-graph-types": "^2.21.0",
     "@types/jest": "^27.5.2",
