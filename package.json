@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@azure/communication-calling": "^1.5.4-beta.1",
+    "@azure/communication-identity": "^1.0.0",
     "@azure/communication-react": "^1.2.3-alpha-202206150016.0",
     "@fluentui/react": "^8.76.0",
     "@microsoft/mgt-element": "^2.5.2",

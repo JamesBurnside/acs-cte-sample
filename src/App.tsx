@@ -6,9 +6,13 @@ import { useIsSignedIn } from './utils/useIsSignedIn';
 import { StartACallPage } from './views/StartACallPage';
 import { CallPage } from './views/CallPage';
 import { WelcomePage } from './views/WelcomePage';
+import { CommunicationIdentityClient } from '@azure/communication-identity';
+import { CallWithChatAdapter } from '@azure/communication-react';
+
+const connectionString = process.env['REACT_APP_AZURE_COMMUNICATION_SERVICES_RESOURCE_CONNECTION_STRING'];
 
 const AppBody = (): JSX.Element => {
-  const [callAdapter, setCallAdapter] = useState<unknown>();
+  const [callAdapter, setCallAdapter] = useState<CallWithChatAdapter>();
   const [meetingUrl, setMeetingUrl] = useState<string>();
   const [me, setMe] = useState<User>();
   const [isSignedIn] = useIsSignedIn();
@@ -22,7 +26,15 @@ const AppBody = (): JSX.Element => {
   }, [isSignedIn]);
 
   useEffect(() => {
-    setCallAdapter(meetingUrl); // todo construct call adapter here.
+    if (!meetingUrl) return;
+
+    (async () => {
+      const aadToken = await Providers.globalProvider.getAccessToken();
+      if (!connectionString) throw new Error('No ACS resource connection string provided');
+      const client = new CommunicationIdentityClient(connectionString);
+      // const accessToken = await client.getTokenForTeamsUserAsync(aadToken);
+      // setCallAdapter({});
+    })();
   }, [meetingUrl])
 
   if (!isSignedIn) {
@@ -50,7 +62,7 @@ const AppBody = (): JSX.Element => {
 
   if (meetingUrl) {
     return (
-      <CallPage />
+      <CallPage adapter={callAdapter} />
     );
   }
 
