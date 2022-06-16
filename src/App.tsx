@@ -8,7 +8,8 @@ import { CallPage } from './views/CallPage';
 import { WelcomePage } from './views/WelcomePage';
 
 const AppBody = (): JSX.Element => {
-  const [callArgs, setCallArgs] = useState<unknown>();
+  const [callAdapter, setCallAdapter] = useState<unknown>();
+  const [meetingUrl, setMeetingUrl] = useState<string>();
   const [me, setMe] = useState<User>();
   const [isSignedIn] = useIsSignedIn();
 
@@ -20,9 +21,17 @@ const AppBody = (): JSX.Element => {
     }
   }, [isSignedIn]);
 
-  if (!isSignedIn) return <WelcomePage />;
+  useEffect(() => {
+    setCallAdapter(meetingUrl); // todo construct call adapter here.
+  }, [meetingUrl])
 
-  if (!me) return <Spinner label="Fetching chat information from Microsoft Graph..." />;
+  if (!isSignedIn) {
+    return <WelcomePage />;
+  }
+
+  if (!me) {
+    return <Spinner label="Fetching chat information from Microsoft Graph..." />;
+  }
 
   if (!me.id) {
     return <>{'Unable to get your user id from graph 🤷'}</>;
@@ -31,11 +40,15 @@ const AppBody = (): JSX.Element => {
     return <>{'Unable to get your displayName from graph 🤷'}</>;
   }
 
-  if (!callArgs) {
-    return <StartACallPage />;
+  if (!meetingUrl) {
+    return <StartACallPage joinTeamsMeeting={(url) => { setMeetingUrl(url) }} />;
   }
 
-  if (callArgs) {
+  if (!callAdapter) {
+    return <Spinner label="Getting ready to join meeting" />;
+  }
+
+  if (meetingUrl) {
     return (
       <CallPage />
     );

@@ -3,6 +3,6 @@ import { PageWithHeader } from './PageWithHeader';
 
 export const CallPage = () => {
   return (
-    <PageWithHeader>Hello World</PageWithHeader>
+    <PageWithHeader>Creating call...</PageWithHeader>
   );
 }
