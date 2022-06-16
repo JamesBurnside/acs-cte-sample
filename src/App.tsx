@@ -10,6 +10,9 @@ import { CommunicationIdentityClient } from '@azure/communication-identity';
 import { createAzureCommunicationCallWithChatAdapter, CallWithChatAdapter } from '@azure/communication-react';
 import { AzureCommunicationTokenCredential, parseConnectionString } from '@azure/communication-common';
 
+// WARNING: THIS SHOULD BE DONE SERVER SIDE.
+// The resource connection string is a secret string and should never be exposed to the client. Instead your server
+// should know this secret and create tokens for users and pass those back to clients.
 const connectionString = process.env['REACT_APP_AZURE_COMMUNICATION_SERVICES_RESOURCE_CONNECTION_STRING'];
 
 const AppBody = (): JSX.Element => {
